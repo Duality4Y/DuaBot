@@ -1,6 +1,6 @@
 import socket
 
-class ircBot(object):
+class ircBot:
     """(server,channel,nick) for initialization."""
     def __init__(self, server, channel, nick, owner, port=6667):
         self.server = server
