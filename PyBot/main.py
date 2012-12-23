@@ -17,4 +17,4 @@ while True:
         print " >> found command.",brain.command
     print "data >> ",data
 
-sys.exit()
+sys.exit(1)
