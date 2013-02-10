@@ -9,7 +9,6 @@ Just to do as little as possible in the main loop.
 """
 
 class BotBrain(irc):
-<<<<<<< HEAD
     found = False
     command = ""
     data = ""
@@ -19,11 +18,6 @@ class BotBrain(irc):
 		#for test purposes we also print.
 		print data+"\r\n"
 		self.log.write(data)
-=======
-    found = False;
-    command = "";
-    data = "";
->>>>>>> 5cf2246b5fc32fb4a67f3474e69d8b4910f8e8e4
     def parseCommand(self,data):
         self.data = data
         self.found = self.findPing(data)
