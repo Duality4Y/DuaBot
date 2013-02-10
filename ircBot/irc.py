@@ -27,7 +27,7 @@ class irc:
     """used to connect to a chat channel"""
     def connect(self):
         self.ircsock.connect((self.server, 6667))
-        self.ircsock.send("USER "+self.nick+" "+self.nick+" "+self.nick+" :Arduino Irc Thingy\n")
+        self.ircsock.send("USER "+self.nick+" "+self.nick+" "+self.nick+" :funBot\n")
         self.ircsock.send("NICK "+self.nick+"\n")
         self.joinchan(self.channel)
     """used to get a username from raw irc input data."""

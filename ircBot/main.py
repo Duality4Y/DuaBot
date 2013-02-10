@@ -11,10 +11,10 @@ brain.connect()
 
 while True:
     data = brain.recieve()
-    brain.parseCommand(data);
+    brain.parseCommand(data)
     if brain.found:
-        brain.executeCommand();
-        print " >> found command.",brain.command
-    print "data >> ",data
+        brain.executeCommand()
+        brain.logging(" >> found command."+brain.command)
+    brain.logging("data >> "+data)
 
 sys.exit(1)

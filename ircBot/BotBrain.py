@@ -9,16 +9,24 @@ Just to do as little as possible in the main loop.
 """
 
 class BotBrain(irc):
-    found = False;
-    command = "";
-    data = "";
+    found = False
+    command = ""
+    data = ""
+    log = open('log.txt','w')
+    
+    def logging(self,data):
+		#for test purposes we also print.
+		print data+"\r\n"
+		self.log.write(data)
     def parseCommand(self,data):
-        self.data = data;
-        if data.find("PING :")!=-1:
-            self.found = True
-            self.command = "ping"
+        self.data = data
+        self.found = self.findPing(data)
+        if(self.found):
+			self.command = "ping"
+			self.found = True
+			return;
         else:
-            self.found = False
+			self.found = False
         """
         Maybe its a idea to add data.find("botowner") to the 
         check whether we found a command or not, just to see
@@ -30,7 +38,7 @@ class BotBrain(irc):
         be found the botowner name and thus comman is valid.
         but yea future stuff.
         """
-        if data.find("PRIVMSG "+self.nick)!=-1:
+        if data.find("PRIVMSG "+self.nick)!=-1 and self.findUser(data) == self.owner:
             if data.find(":!")!=-1:
                 self.found = True
                 if data.find("join ")!=-1:
@@ -45,25 +53,38 @@ class BotBrain(irc):
                     self.command = "say"
                 elif data.find("42")!= -1:
                     self.command = "42"
+            """
             else:
                 pass;
-                """
+                
                 #send = data.split(':',1)[1]
                 #print "Pm: "+self.getUserName(data)+" >> ",send
                 #self.Privmsg(self.getUserName(data),send)
-                """
+            """
         else:
             self.found = False
-        """a test for something else mend to send back what ever
+        """a test for something else ment to send back what ever
            was entered in a chat channel not needed in parsing 
            for commands."""
+        """
         if data.find("PRIVMSG "+self.channel)!=-1:
             #return ircmsg
             pass
+        """
+    def findPing(self,ping):
+		ping = ping.split(" :")[0]
+		if(ping == "PING"):
+			return True
+		else:
+			return False
+    def findUser(self,data):
+		nick = data.split("!~")[0][1:]
+		self.logging("findUser >> "+nick)
+		return nick
     def executeCommand(self):
         if self.command == "ping":
+            self.logging("Ponged ");
             self.ping()
-            print "ping"
         if self.command == "join":
             self.leaveChan(self.channel)
         if self.command == "say":
@@ -81,7 +102,7 @@ class BotBrain(irc):
             if self.data[l] == ":":
                 chan = self.data
                 chan = chan[l+len("!join "):len(self.data)]
-                print "chan >> ",chan
+                self.logging("chan >> "+chan)
                 self.leavechan(self.channel)
                 self.join(chan)
                 self.channel = chan.strip(' ')
@@ -97,6 +118,7 @@ class BotBrain(irc):
     def fourthyTwo(self):
         self.sendmsg(self.channel, 'Douglas Adams - "42 is a nice number that you can take home and introduce to your family."')
     def quit(self):
+        self.log.close();
         sys.exit(1);
     
     
