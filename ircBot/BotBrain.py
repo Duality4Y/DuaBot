@@ -1,4 +1,4 @@
-from ircBot import ircBot
+from irc import irc
 import sys
 
 """
@@ -8,7 +8,7 @@ could keep all the data handling inside this class.
 Just to do as little as possible in the main loop.
 """
 
-class BotBrain(ircBot):
+class BotBrain(irc):
     found = False;
     command = "";
     data = "";
