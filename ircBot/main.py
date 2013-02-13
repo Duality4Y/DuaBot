@@ -1,4 +1,4 @@
-from BotBrain import BotBrain
+from Brain import BotBrain
 import sys
 
 server = "irc.freenode.net"
@@ -16,5 +16,4 @@ while True:
         brain.executeCommand()
         brain.logging(" >> found command."+brain.command)
     brain.logging("data >> "+data)
-
 sys.exit(1)
