@@ -14,12 +14,24 @@ class BotBrain(irc):
     found = False
     command = ""
     data = ""
+    
+    #clear log data
     log = open('log.txt','w')
+    log.close()
+    
+    #give it the file name it needs to work with.
     quoteSys = QuoteSys.quote('quote.txt')
+    
+    """function for logging progress."""
     def logging(self,data):
-		#for test purposes we also print.
-		print data+"\r\n"
-		self.log.write(data)       
+        #we keep a log, so i keep data on the irc log and results of
+        #of the tests and module data.
+        log = open('log.txt','a')
+        #for test purposes we also print.
+        print data+"\n"
+        log.write(data)
+        log.close()
+    """function that parses commands from input data"""
     def parseCommand(self,data):
         self.data = data
         self.found = self.findPing(data)
@@ -75,16 +87,19 @@ class BotBrain(irc):
             #return ircmsg
             pass
         """
+    """function for pinging server."""
     def findPing(self,ping):
 		ping = ping.split(" :")[0]
 		if(ping == "PING"):
 			return True
 		else:
 			return False
+    """function for finding user nickname in data."""
     def findUser(self,data):
 		nick = data.split("!",1)[0][1:]
 		self.logging("findUser >> "+nick)
 		return nick
+    """execute parsed commands."""
     def executeCommand(self):
         if self.command == "ping":
             self.logging("Ponged ")
@@ -105,6 +120,12 @@ class BotBrain(irc):
             self.quoteSys.process(self.data)
             if self.quoteSys.returnData:
                 self.say(self.quoteSys.data)
+    """
+        function for leaving a irc channel
+        also incidently leaves and joins a other channel
+        it leaves the global channel (self.channel) and joins 
+        channel passed through the chan param.
+    """
     def leaveChan(self,chan):
         for l in xrange(len(self.data)):
             if self.data[l] == ":":
@@ -114,21 +135,26 @@ class BotBrain(irc):
                 self.leavechan(self.channel)
                 self.join(chan)
                 self.channel = chan.strip(' ')
+    """function for joining a channel"""
     def join(self,chan):
         self.joinchan(chan)
+    """get everything said in a chat channel (per line) """
     def extractChatMessage(self,data):
         return data.split(':!')[1][len("say: "):]
+    """function for sending something to the current channel it is in."""
     def say(self,data):
         self.sendmsg(self.channel, data)
+    """function for saying it's name (brain name)."""
     def sayName(self):
         self.sendmsg(self.channel, "Hello everyone! I am Artie.")
+    """Tell who is it's master"""
     def master(self):
         self.sendmsg(self.channel,"Hello there! Duality is my Master.")
+    """tell a lovely qoute"""
     def fourthyTwo(self):
         self.sendmsg(self.channel, 'Douglas Adams - "42 is a nice number that you can take home and introduce to your family."')
+    """Quit (still needs to be updated properly to quit from the channel the right way)"""
     def quit(self):
-        self.log.close()
-        self.quoteSys.close()
         sys.exit(1)
     
     
