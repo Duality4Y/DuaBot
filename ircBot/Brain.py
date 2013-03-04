@@ -14,6 +14,7 @@ class BotBrain(irc):
     found = False
     command = ""
     data = ""
+    ident = False
     
     #clear log data
     log = open('log.txt','w')
@@ -29,7 +30,7 @@ class BotBrain(irc):
         log = open('log.txt','a')
         #for test purposes we also print.
         print data+"\n"
-        log.write(data)
+        log.write(data+"\n")
         log.close()
     """function that parses commands from input data"""
     def parseCommand(self,data):
@@ -38,22 +39,16 @@ class BotBrain(irc):
         if(self.found):
 			self.command = "ping"
 			self.found = True
-			return;
+			return
         else:
 			self.found = False
         """
-        Maybe its a idea to add data.find("botowner") to the 
-        check whether we found a command or not, just to see
-        from who'm we had gotten the command actually is the 
-        person who's supposed to give commands... but yea
-        maybe it be better to check for the name in the protocol
-        string since if a random user be giving commands and
-        put the right name somewhere in there then there would
-        be found the botowner name and thus comman is valid.
-        but yea future stuff.
+        messages are checked to see if there is a username/nickname
+        in it that matches the botowner.
         """
-        if data.find("PRIVMSG "+self.nick)!=-1 and self.findUser(data) == self.owner:
-            if data.find(":!")!=-1:
+        #private meaning only listens to self.owner 
+        if data.find("PRIVMSG "+self.nick)!=-1 and self.getUserName(data) == self.owner:
+            if data.find(" :!")!=-1:
                 self.found = True
                 if data.find("join ")!=-1:
                     self.command = "join"
@@ -68,37 +63,23 @@ class BotBrain(irc):
                 elif data.find("42")!= -1:
                     self.command = "42"
                 elif data.find("quote")!= -1:
-                    self.command = "quote";
-            """
-            else:
-                pass;
-                
-                #send = data.split(':',1)[1]
-                #print "Pm: "+self.getUserName(data)+" >> ",send
-                #self.Privmsg(self.getUserName(data),send)
-            """
-        else:
-            self.found = False
-        """a test for something else ment to send back what ever
-           was entered in a chat channel not needed in parsing 
-           for commands."""
-        """
-        if data.find("PRIVMSG "+self.channel)!=-1:
-            #return ircmsg
-            pass
-        """
-    """function for pinging server."""
+                    self.command = "quote"
+                elif data.find("ident")!= -1:
+                    self.command = "ident"
+                else:
+                    self.found = False
+        #public private message meaning it listens to anyone in a pm.
+        elif data.find("PRIVMSG "+self.nick)!=-1 and self.ident:
+            self.Privmsg(self.owner,self.data)
+            self.Privmsg(self.getUserName(data),"Trollololo")
+        #else:
+        #    self.found = False
     def findPing(self,ping):
 		ping = ping.split(" :")[0]
 		if(ping == "PING"):
 			return True
 		else:
 			return False
-    """function for finding user nickname in data."""
-    def findUser(self,data):
-		nick = data.split("!",1)[0][1:]
-		self.logging("findUser >> "+nick)
-		return nick
     """execute parsed commands."""
     def executeCommand(self):
         if self.command == "ping":
@@ -120,6 +101,10 @@ class BotBrain(irc):
             self.quoteSys.process(self.data)
             if self.quoteSys.returnData:
                 self.say(self.quoteSys.data)
+                self.quoteSys.returnData = False
+        if self.command == "ident":
+            self.Privmsg("nickserv","identify <@wereld12>")
+            self.ident = True;
     """
         function for leaving a irc channel
         also incidently leaves and joins a other channel
@@ -138,7 +123,7 @@ class BotBrain(irc):
     """function for joining a channel"""
     def join(self,chan):
         self.joinchan(chan)
-    """get everything said in a chat channel (per line) """
+    """get what is to be sayed for a command. """
     def extractChatMessage(self,data):
         return data.split(':!')[1][len("say: "):]
     """function for sending something to the current channel it is in."""

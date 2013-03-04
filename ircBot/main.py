@@ -3,7 +3,7 @@ import sys
 
 server = "irc.freenode.net"
 channel = "#test1123"
-nick = "DuaBot"
+nick = "Daulity"
 botowner = "Duality"
 
 brain = BotBrain(server,channel,nick,botowner)

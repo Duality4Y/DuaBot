@@ -17,7 +17,7 @@ class irc:
         self.ircsock.send("PRIVMSG "+chan+" :"+msg+"\n")
     """used to send a priv msg to a user"""
     def Privmsg(self,_nick, msg):
-        self.ircsock.send(":"+_nick+" PRIVMSG "+self.owner+" :"+msg+"\n")
+        self.ircsock.send(":"+_nick+" PRIVMSG "+_nick+" :"+msg+"\n")
     """used to join a channel"""
     def joinchan(self,chan):
         self.ircsock.send("JOIN "+chan+"\n")
