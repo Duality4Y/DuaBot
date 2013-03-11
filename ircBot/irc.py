@@ -38,3 +38,8 @@ class irc:
         data = self.ircsock.recv(2048)
         data = data.strip('\n\r')
         return data
+    """Quiting irc and leaving the propper way."""
+    def ircQuit(self,message):
+        self.ircsock.send("QUIT :"+message+"\n")
+    def changeNick(self,nick):
+        self.ircsock.send("NICK :"+nick+"\n")

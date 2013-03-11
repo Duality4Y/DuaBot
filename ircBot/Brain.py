@@ -32,7 +32,23 @@ class BotBrain(irc):
         print data+"\n"
         log.write(data+"\n")
         log.close()
-    """function that parses commands from input data"""
+    """
+    function that parses commands from input data
+    messages are checked to see if there is a username/nickname
+    in it that matches the botowner.
+    private commands are:
+    !join
+    !quit
+    !master
+    !say name
+    !say:
+    !ident
+    
+    public:
+    !42
+    maybe !quote
+    and the sub commands of !quote private.
+    """
     def parseCommand(self,data):
         self.data = data
         self.found = self.findPing(data)
@@ -42,11 +58,7 @@ class BotBrain(irc):
 			return
         else:
 			self.found = False
-        """
-        messages are checked to see if there is a username/nickname
-        in it that matches the botowner.
-        """
-        #private meaning only listens to self.owner 
+        #private meaning only listens to self.owner in a pm
         if data.find("PRIVMSG "+self.nick)!=-1 and self.getUserName(data) == self.owner:
             if data.find(" :!")!=-1:
                 self.found = True
@@ -60,20 +72,41 @@ class BotBrain(irc):
                     self.command = "sayname"
                 elif data.find("say: ")!= -1:
                     self.command = "say"
-                elif data.find("42")!= -1:
-                    self.command = "42"
-                elif data.find("quote")!= -1:
-                    self.command = "quote"
+                #elif data.find("42")!= -1:
+                #    self.command = "42"
+                #elif data.find("quote")!= -1:
+                #    self.command = "quote"
                 elif data.find("ident")!= -1:
                     self.command = "ident"
                 else:
                     self.found = False
-        #public private message meaning it listens to anyone in a pm.
-        elif data.find("PRIVMSG "+self.nick)!=-1 and self.ident:
+        #public private message meaning it listens to anyone in a pm. (when identified)
+        if data.find("PRIVMSG "+self.nick)!=-1 and self.ident:
             self.Privmsg(self.owner,self.data)
             self.Privmsg(self.getUserName(data),"Trollololo")
+        #commands that can be used in a channel by me.
+        if data.find("PRIVMSG "+self.channel)!=-1 and self.getUserName(data) == self.owner:
+            if data.find(" :!")!=-1:
+                self.found = True
+                if data.find("42")!=-1:
+                    self.command = "42"
+                else:
+                    self.found = False
+        #commands that are used in the channel
+        if data.find("PRIVMSG "+self.channel)!=-1:
+            if data.find(" :!")!=-1:
+                self.found = True
+                if data.find("quote")!=-1:
+                    self.command = "quote"
+                else:
+                    self.found = False
+                
         #else:
         #    self.found = False
+    """
+    look wheter there was a ping found from the server
+    and return acordingly
+    """
     def findPing(self,ping):
 		ping = ping.split(" :")[0]
 		if(ping == "PING"):
@@ -98,7 +131,7 @@ class BotBrain(irc):
         if self.command == "42":
             self.fourthyTwo()
         if self.command == "quote":
-            self.quoteSys.process(self.data)
+            self.quoteSys.process(self.data,self.getUserName(self.data),self.owner)
             if self.quoteSys.returnData:
                 self.say(self.quoteSys.data)
                 self.quoteSys.returnData = False
@@ -140,10 +173,5 @@ class BotBrain(irc):
         self.sendmsg(self.channel, 'Douglas Adams - "42 is a nice number that you can take home and introduce to your family."')
     """Quit (still needs to be updated properly to quit from the channel the right way)"""
     def quit(self):
+        self.ircQuit("There I go die again! good bye cruel world, maybe see you another time again, at another place and time maybe.")
         sys.exit(1)
-    
-    
-    
-    
-    
-    

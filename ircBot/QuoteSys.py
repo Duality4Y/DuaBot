@@ -6,17 +6,19 @@ class quote(object):
 		self.FileLength = 1
 		self.data = ""
 		self.returnData = False
-		self.commands = ["quote add","quote remove","quote num:","quote size","quote"]
+		self.commands = ["quote add","quote remove","quote num:","quote list size","quote"]
 		self.numCommands = len(self.commands)
 	
-	def process(self,data):
-		if data.find(self.commands[0])!= -1:
+	def process(self,data,foundNick,owner):
+		if data.find(self.commands[0])!= -1 and foundNick == owner:
 			self.addLine(data)
-		elif data.find(self.commands[1])!= -1:
+			self.data = "Thanks for adding a quote!"
+			self.returnData = True
+		elif data.find(self.commands[1])!= -1 and foundNick == owner:
 			pass
-		elif data.find(self.commands[2])!= -1:
+		elif data.find(self.commands[2])!= -1 and foundNick == owner:
 			pass
-		elif data.find(self.commands[3])!= -1:
+		elif data.find(self.commands[3])!= -1 and foundNick == owner:
 			pass
 		elif data.find(self.commands[4])!=-1:
 			randomLine = random.randint(1,self.getNumOfLines())
@@ -24,6 +26,9 @@ class quote(object):
 			print "a random line number: ",randomLine
 			print "a random quote: ",self.getLine(randomLine)
 			self.data = self.getLine(randomLine)
+			self.returnData = True
+		else:
+			self.data = "your not authorized to do that!"
 			self.returnData = True
 	"""adds a file to a file."""
 	def addLine(self,line):
