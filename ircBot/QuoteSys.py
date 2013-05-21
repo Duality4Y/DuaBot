@@ -8,18 +8,35 @@ class quote(object):
 		self.returnData = False
 		self.commands = ["quote add","quote remove","quote num:","quote list size","quote"]
 		self.numCommands = len(self.commands)
-	
+	"""
+		commands are:
+		!quote
+		!quote add
+		!quote remove
+		!quote num: <num>
+		!quote list size <return number of lines in the list thus the numbers of quotes.>
+		
+		__future__:
+		Idea: A !quote lists.
+		
+		
+	"""
 	def process(self,data,foundNick,owner):
+		#find first command, add line.
 		if data.find(self.commands[0])!= -1 and foundNick == owner:
 			self.addLine(data)
 			self.data = "Thanks for adding a quote!"
 			self.returnData = True
+		#find second command, remove a line.
 		elif data.find(self.commands[1])!= -1 and foundNick == owner:
 			pass
+		#find third command, return requested quote.
 		elif data.find(self.commands[2])!= -1 and foundNick == owner:
 			pass
+		#find fourth command, return list size.
 		elif data.find(self.commands[3])!= -1 and foundNick == owner:
 			pass
+		#find fith command !quote anyone can use.
 		elif data.find(self.commands[4])!=-1:
 			randomLine = random.randint(1,self.getNumOfLines())
 			print "list length: ", self.getNumOfLines()
@@ -30,7 +47,7 @@ class quote(object):
 		else:
 			self.data = "your not authorized to do that!"
 			self.returnData = True
-	"""adds a file to a file."""
+	"""adds a Quote to a file."""
 	def addLine(self,line):
 		line = line.join(line.split(" :!")[1:])[len(self.commands[0]):]
 		line = line.strip('\n\r')

@@ -9,6 +9,7 @@ class irc:
         self.owner = owner
         self.port = port
         self.ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    
     """used for keeping the bot in the air"""
     def ping(self):
         self.ircsock.send("PONG :Pong\n")
@@ -41,5 +42,6 @@ class irc:
     """Quiting irc and leaving the propper way."""
     def ircQuit(self,message):
         self.ircsock.send("QUIT :"+message+"\n")
+    """Change your nick"""
     def changeNick(self,nick):
         self.ircsock.send("NICK :"+nick+"\n")
