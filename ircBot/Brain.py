@@ -165,6 +165,7 @@ class BotBrain(irc):
                 self.say(self.quoteSys.data)
                 self.quoteSys.returnData = False
         if self.command == "ident":
+<<<<<<< HEAD
             pass
             #if self.data.find(self.nick+" :"+self.nick+" is not a registered"):
             #    self.Privmsg(self.owner, "user not registered")
@@ -175,6 +176,15 @@ class BotBrain(irc):
     
     def leaveChan(self,chan):
         """
+=======
+			#if self.data.find(self.nick+" :"+self.nick+" is not a registered"):
+				self.Privmsg(self.owner, "user not registered")
+				self.ident = False
+			#else:
+				self.Privmsg("nickserv","identify "+self.password)
+				self.ident = True
+    """
+>>>>>>> 7d019e7bdfd21f94d1ed88dd6b3b4e1dbb5e946c
         function for leaving a irc channel
         also leaves and joins a other channel
         it leaves the global channel (self.channel) and joins 
@@ -189,30 +199,58 @@ class BotBrain(irc):
                 self.join(chan)
                 self.channel = chan.strip(' ')
     
+<<<<<<< HEAD
+=======
+    """function for joining a channel"""
+>>>>>>> 7d019e7bdfd21f94d1ed88dd6b3b4e1dbb5e946c
     def join(self,chan):
         """function for joining a channel"""
         self.joinchan(chan)
     
+<<<<<<< HEAD
+=======
+    """get what is to be sayed for a command. """
+>>>>>>> 7d019e7bdfd21f94d1ed88dd6b3b4e1dbb5e946c
     def extractChatMessage(self,data):
         """get what is to be sayed for a command. """
         return data.split(':!')[1][len("say: "):]
     
+<<<<<<< HEAD
+=======
+    """function for sending something to the current channel it is in."""
+>>>>>>> 7d019e7bdfd21f94d1ed88dd6b3b4e1dbb5e946c
     def say(self,data):
         """function for sending something to the current channel it is in."""
         self.sendmsg(self.channel, data)
     
+<<<<<<< HEAD
+=======
+    """function for saying it's name (brain name)."""
+>>>>>>> 7d019e7bdfd21f94d1ed88dd6b3b4e1dbb5e946c
     def sayName(self):
         """function for saying it's name (brain name)."""
         self.sendmsg(self.channel, "Hello everyone! I am Artie.")
     
+<<<<<<< HEAD
+=======
+    """Tell who is it's master"""
+>>>>>>> 7d019e7bdfd21f94d1ed88dd6b3b4e1dbb5e946c
     def master(self):
         """Tell who is it's master"""
         self.sendmsg(self.channel,"Hello there! Duality is my Master.")
     
+<<<<<<< HEAD
+=======
+    """tell a lovely qoute"""
+>>>>>>> 7d019e7bdfd21f94d1ed88dd6b3b4e1dbb5e946c
     def fourthyTwo(self):
         """tell a lovely qoute"""
         self.sendmsg(self.channel, 'Douglas Adams - "42 is a nice number that you can take home and introduce to your family."')
     
+<<<<<<< HEAD
+=======
+    """Quit (still needs to be updated properly to quit from the channel the right way)"""
+>>>>>>> 7d019e7bdfd21f94d1ed88dd6b3b4e1dbb5e946c
     def quit(self):
         """Quit (still needs to be updated properly to quit from the channel the right way)"""
         self.ircQuit("There I go die again! good bye cruel world, maybe see you another time again, at another place and time maybe.")

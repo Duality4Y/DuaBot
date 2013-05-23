@@ -2,4 +2,8 @@ server = irc.freenode.net
 channel = #bot
 nick = DauBot
 owner = Duality
+<<<<<<< HEAD
 password = <@wereld12>
+=======
+password = enter your password
+>>>>>>> 7d019e7bdfd21f94d1ed88dd6b3b4e1dbb5e946c

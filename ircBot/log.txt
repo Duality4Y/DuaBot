@@ -1,0 +1,111 @@
+<<<<<<< HEAD
+=======
+data >> :sendak.freenode.net NOTICE * :*** Looking up your hostname...
+data >> :sendak.freenode.net NOTICE * :*** Checking Ident
+:sendak.freenode.net NOTICE * :*** No Ident response
+data >> :sendak.freenode.net NOTICE * :*** Found your hostname
+:sendak.freenode.net 001 DauBot :Welcome to the freenode Internet Relay Chat Network DauBot
+:sendak.freenode.net 002 DauBot :Your host is sendak.freenode.net[193.219.128.49/6667], running version ircd-seven-1.1.3
+:sendak.freenode.net 003 DauBot :This server was created Mon Dec 31 2012 at 23:37:24 EET
+:sendak.freenode.net 004 DauBot sendak.freenode.net ircd-seven-1.1.3 DOQRSZaghilopswz CFILMPQbcefgijklmnopqrstvz bkloveqjfI
+:sendak.freenode.net 005 DauBot CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQcgimnprstz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=freenode KNOCK STATUSMSG=@+ CALLERID=g :are supported by this server
+:sendak.freenode.net 005 DauBot CASEMAPPING=rfc1459 CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 ETRACE CPRIVMSG CNOTICE DEAF=D MONITOR=100 FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: :are supported by this server
+:sendak.freenode.net 005 DauBot EXTBAN=$,arx WHOX CLIENTVER=3.0 SAFELIST ELIST=CTU :are supported by this server
+:sendak.freenode.net 251 DauBot :There are 194 users and 75602 invisible on 27 servers
+:sendak.freenode.net 252 DauBot 35 :IRC Operators online
+:sendak.freenode.net 253 DauBot 5 :unknown connection(s)
+:sendak.freenode.net 254 DauBot 41513 :channels formed
+:sendak.freenode.net 255 DauBot :I have 3725 clients and 1 servers
+:sendak.freenode.net 265 DauBot 372
+data >> 5 4336 :Current local users 3725, max 4336
+:sendak.freenode.net 266 DauBot 75796 90228 :Current global users 75796, max 90228
+:sendak.freenode.net 250 DauBot :Highest connection count: 4337 (4336 clients) (87190 connections received)
+:sendak.freenode.net 375 DauBot :- sendak.freenode.net Message of the Day - 
+:sendak.freenode.net 372 DauBot :- Welcome to sendak.freenode.net in Vilnius, Lithuania, EU.
+:sendak.freenode.net 372 DauBot :- Thanks to Microlink Lietuva (http://www.microlink.lt) for providing this
+:sendak.freenode.net 372 DauBot :- server!
+:sendak.freenode.net 372 DauBot :-  
+:sendak.freenode.net 372 DauBot :- SENDAK, MAURICE [1928-2012].  The author of Seven Little
+:sendak.freenode.net 372 DauBot :- Monsters and Where the Wild Things Are, Maurice Sendak was
+:sendak.freenode.net 372 DauBot :- born in Brooklyn, NY, US, to a family of poor Polish
+:sendak.freenode.net 372 DauBot :- immigrants who moved to the US before World War II.  He
+:sendak.freenode.net 372 DauBot :- became an illustrator while in high school.
+:sendak.freenode.net 372 DauBot :-  
+:sendak.freenode.net 372 DauBot :- Welcome to freenode - supporting the free and open source
+:sendak.freenode.net 372 DauBot :- software communities since 1998.
+:sendak.freenode.net 372 DauBot :-  
+:sendak.freenode.net 372 DauBot :- By connecting to freenode you indicate that you have read and
+:sendak.freenode.net 372 DauBot :- agree to adhere to our poli
+data >> cies and procedures as per the
+:sendak.freenode.net 372 DauBot :- website (http://freenode.net/).
+:sendak.freenode.net 372 DauBot :-  
+:sendak.freenode.net 372 DauBot :- We would like to remind you that unauthorised public logging
+:sendak.freenode.net 372 DauBot :- of channels on the network is prohibited. Public channel
+:sendak.freenode.net 372 DauBot :- logging should only take place where the channel owner(s) has
+:sendak.freenode.net 372 DauBot :- requested this and users of the channel are all made aware
+:sendak.freenode.net 372 DauBot :- (if you are publically logging your channel, you may wish to 
+:sendak.freenode.net 372 DauBot :- keep a notice in the topic and perhaps as an on-join message).
+:sendak.freenode.net 372 DauBot :-  
+:sendak.freenode.net 372 DauBot :- freenode runs an open proxy scanner. For details on freenode 
+:sendak.freenode.net 372 DauBot :- network policy, please take a look at our policy page 
+:sendak.freenode.net 372 DauBot :- (http://freenode.net/policy.shtml).  Your use of the network
+:sendak.freenode.net 372 DauBot :- indicates your acceptance of this policy.
+:sendak.freenode.net 372 DauBot :-  
+:sendak.freenode.net 372 DauBot :- Please join #freenode for any network-related questions or
+:sendak.freenode.net 372 DauBot :- queries, there are numerous freenode volunteers and helpful
+:sendak.freenode.net 372 DauBot :- users who would be happy to try answer any questions you might
+data >> :sendak.freenode.net 372 DauBot :- have.
+:sendak.freenode.net 372 DauBot :-  
+:sendak.freenode.net 372 DauBot :- Check out www.fossevents.org to find out what is happening in
+:sendak.freenode.net 372 DauBot :- your area, join us at FOSSCON (www.fosscon.org) for talks and
+:sendak.freenode.net 372 DauBot :- real-life collaboration or bring a picnic and come join
+:sendak.freenode.net 372 DauBot :- like-minded geeks for a geeknic (www.geeknic.org) somewhere
+:sendak.freenode.net 372 DauBot :- close to you. 
+:sendak.freenode.net 372 DauBot :- Lastly, massive thanks to the OSU Open Source Lab
+:sendak.freenode.net 372 DauBot :- (http://osuosl.org/) and Private Internet Access
+:sendak.freenode.net 372 DauBot :- (https://www.privateinternetaccess.com/) for their sustained,
+:sendak.freenode.net 372 DauBot :- long term support and dedication they show to the FOSS
+:sendak.freenode.net 372 DauBot :- communities.
+:sendak.freenode.net 372 DauBot :-  
+:sendak.freenode.net 372 DauBot :- ***************************************************************
+:sendak.freenode.net 372 DauBot :- Please read http://blog.freenode.net/2010/11/be-safe-out-there/
+:sendak.freenode.net 372 DauBot :- ***************************************************************
+:sendak.freenode.net 376 DauBot :End of /MOTD command.
+:DauBot MODE DauBot :+i
+data >> :DauBot!~DauBot@ip4da2c95a.direct-adsl.nl JOIN #bot
+data >> :sendak.freenode.net 353 DauBot = #bot :DauBot makro_ stormbringer Duality @ChanServ pavel__
+:sendak.freenode.net 366 DauBot #bot :End of /NAMES list.
+Ponged 
+ >> found command.ping
+data >> PING :sendak.freenode.net
+ >> found command.quote help
+data >> :Duality!~duality@ip4da2c95a.direct-adsl.nl PRIVMSG #bot :!quote help
+ >> found command.quote
+data >> :Duality!~duality@ip4da2c95a.direct-adsl.nl PRIVMSG #bot :!quote
+ >> found command.quote
+data >> :Duality!~duality@ip4da2c95a.direct-adsl.nl PRIVMSG #bot :!quote add 'God knows! How that might have looked!' - Doctor Who
+ >> found command.quote
+data >> :Duality!~duality@ip4da2c95a.direct-adsl.nl PRIVMSG #bot :!quote remove 
+ >> found command.quote
+data >> :Duality!~duality@ip4da2c95a.direct-adsl.nl PRIVMSG #bot :!quote request 
+ >> found command.quote
+data >> :Duality!~duality@ip4da2c95a.direct-adsl.nl PRIVMSG #bot :!quote list size
+data >> :Duality!~duality@ip4da2c95a.direct-adsl.nl NICK :duality
+ >> found command.quote help
+data >> :duality!~duality@ip4da2c95a.direct-adsl.nl PRIVMSG #bot :!quote help
+ >> found command.quote
+data >> :duality!~duality@ip4da2c95a.direct-adsl.nl PRIVMSG #bot :!quote 
+ >> found command.quote
+data >> :duality!~duality@ip4da2c95a.direct-adsl.nl PRIVMSG #bot :!quote
+ >> found command.quote
+data >> :duality!~duality@ip4da2c95a.direct-adsl.nl PRIVMSG #bot :!quote add
+ >> found command.quote
+data >> :duality!~duality@ip4da2c95a.direct-adsl.nl PRIVMSG #bot :!quote remove
+ >> found command.quote
+data >> :duality!~duality@ip4da2c95a.direct-adsl.nl PRIVMSG #bot :!quote request 
+ >> found command.quote
+data >> :duality!~duality@ip4da2c95a.direct-adsl.nl PRIVMSG #bot :!quote request
+ >> found command.quote
+data >> :duality!~duality@ip4da2c95a.direct-adsl.nl PRIVMSG #bot :!quote list size
+data >> :duality!~duality@ip4da2c95a.direct-adsl.nl NICK :Duality
+>>>>>>> 7d019e7bdfd21f94d1ed88dd6b3b4e1dbb5e946c
