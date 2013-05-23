@@ -16,9 +16,6 @@ class BotBrain(irc):
     data = ""
     ident = False
     
-    #enter your password here.
-    password = "your password"
-    
     #clear log data
     log = open('log.txt','w')
     log.close()
@@ -31,8 +28,8 @@ class BotBrain(irc):
         #we keep a log, so i keep data on the irc log and results of
         #of the tests and module data.
         log = open('log.txt','a')
-        #for test purposes we also print.
-        print data+"\n"
+        #for test purposes we can also print.
+        #print data+"\n"
         log.write(data+"\n")
         log.close()
     """
@@ -56,11 +53,12 @@ class BotBrain(irc):
         self.data = data
         self.found = self.findPing(data)
         if(self.found):
-			self.command = "ping"
-			self.found = True
-			return
+            self.command = "ping"
+            self.found = True
+            return
         else:
-			self.found = False
+            self.found = False
+            
         #private meaning only listens to self.owner in a pm
         if data.find("PRIVMSG "+self.nick)!=-1 and self.getUserName(data) == self.owner:
             if data.find(" :!")!=-1:
@@ -75,19 +73,25 @@ class BotBrain(irc):
                     self.command = "sayname"
                 elif data.find("say: ")!= -1:
                     self.command = "say"
+                elif data.find("ident")!= -1:
+                    if self.getUserName(data) == self.owner:
+                        self.command = "ident"
+                    else:
+                        pass
                 #elif data.find("42")!= -1:
                 #    self.command = "42"
                 #elif data.find("quote")!= -1:
                 #    self.command = "quote"
-                elif data.find("ident")!= -1:
-                    self.command = "ident"
                 else:
                     self.found = False
         #public private message meaning it listens to anyone in a pm. (when identified)
+        #and sends actuall irc data to owner and trollololo to the person in question.
         if data.find("PRIVMSG "+self.nick)!=-1 and self.ident:
             self.Privmsg(self.owner,self.data)
-            self.Privmsg(self.getUserName(data),"Trollololo")
-        #commands that can be used in a channel by me.
+            if self.getUserName(data) != self.owner:
+				self.Privmsg(self.getUserName(data),"Trollololo")
+            
+        #commands that can be used in a channel by me. thus only self.owner (owner)
         if data.find("PRIVMSG "+self.channel)!=-1 and self.getUserName(data) == self.owner:
             if data.find(" :!")!=-1:
                 self.found = True
@@ -95,11 +99,15 @@ class BotBrain(irc):
                     self.command = "42"
                 else:
                     self.found = False
-        #commands that are used in the channel
+                    
+        #commands that are used in the channel by anyone
         if data.find("PRIVMSG "+self.channel)!=-1:
             if data.find(" :!")!=-1:
                 self.found = True
-                if data.find("quote")!=-1:
+                if data.find("help")!=-1:
+                    if data.find("quote"):
+                        self.command = "quote help"
+                elif data.find("quote")!=-1:
                     self.command = "quote"
                 else:
                     self.found = False
@@ -133,14 +141,35 @@ class BotBrain(irc):
             self.master()
         if self.command == "42":
             self.fourthyTwo()
+        if self.command == "quote help":
+            """
+            !quote
+            !quote add
+            !quote remove <num>
+            !quote request <num>
+            !quote list size
+            !quote help
+            """
+            self.say("This is quote help:")
+            self.say("some only work when you are allowed to use,")
+            self.say("meaning you need to be a known user to the bot.")
+            self.say("!quote <help>:        gives you a random quote, and optional help for detailed help.")
+            self.say("!quote add <quote> :  allows you to add quote")
+            self.say("!quote remove <num> : allows you to remove a specific quote")
+            self.say("!quote request <num>: allows you to request a specific quote")
+            self.say("!quote list size :    gives you the number of quotes in a list")
         if self.command == "quote":
             self.quoteSys.process(self.data,self.getUserName(self.data),self.owner)
             if self.quoteSys.returnData:
                 self.say(self.quoteSys.data)
                 self.quoteSys.returnData = False
         if self.command == "ident":
-            self.Privmsg("nickserv","identify"+self.password)
-            self.ident = True;
+			#if self.data.find(self.nick+" :"+self.nick+" is not a registered"):
+				self.Privmsg(self.owner, "user not registered")
+				self.ident = False
+			#else:
+				self.Privmsg("nickserv","identify "+self.password)
+				self.ident = True
     """
         function for leaving a irc channel
         also incidently leaves and joins a other channel
@@ -156,24 +185,31 @@ class BotBrain(irc):
                 self.leavechan(self.channel)
                 self.join(chan)
                 self.channel = chan.strip(' ')
+    
     """function for joining a channel"""
     def join(self,chan):
         self.joinchan(chan)
+    
     """get what is to be sayed for a command. """
     def extractChatMessage(self,data):
         return data.split(':!')[1][len("say: "):]
+    
     """function for sending something to the current channel it is in."""
     def say(self,data):
         self.sendmsg(self.channel, data)
+    
     """function for saying it's name (brain name)."""
     def sayName(self):
         self.sendmsg(self.channel, "Hello everyone! I am Artie.")
+    
     """Tell who is it's master"""
     def master(self):
         self.sendmsg(self.channel,"Hello there! Duality is my Master.")
+    
     """tell a lovely qoute"""
     def fourthyTwo(self):
         self.sendmsg(self.channel, 'Douglas Adams - "42 is a nice number that you can take home and introduce to your family."')
+    
     """Quit (still needs to be updated properly to quit from the channel the right way)"""
     def quit(self):
         self.ircQuit("There I go die again! good bye cruel world, maybe see you another time again, at another place and time maybe.")

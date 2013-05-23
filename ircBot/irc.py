@@ -2,11 +2,12 @@ import socket
 
 class irc:
     """(server,channel,nick) for initialization."""
-    def __init__(self, server, channel, nick, owner, port=6667):
+    def __init__(self, server, channel, nick, owner,password, port=6667):
         self.server = server
         self.channel = channel
         self.nick = nick
         self.owner = owner
+	self.password = password
         self.port = port
         self.ircsock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     
