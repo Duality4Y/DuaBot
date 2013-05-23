@@ -16,6 +16,9 @@ class BotBrain(irc):
     data = ""
     ident = False
     
+    #enter your password here.
+    password = "your password"
+    
     #clear log data
     log = open('log.txt','w')
     log.close()
@@ -136,7 +139,7 @@ class BotBrain(irc):
                 self.say(self.quoteSys.data)
                 self.quoteSys.returnData = False
         if self.command == "ident":
-            self.Privmsg("nickserv","identify <@wereld12>")
+            self.Privmsg("nickserv","identify"+self.password)
             self.ident = True;
     """
         function for leaving a irc channel
