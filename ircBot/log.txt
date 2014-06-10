@@ -138,3 +138,6 @@ data >> PING :cameron.freenode.net
 Ponged 
  >> found command.ping
 data >> PING :cameron.freenode.net
+Ponged 
+ >> found command.ping
+data >> PING :cameron.freenode.net
