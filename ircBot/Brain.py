@@ -2,6 +2,9 @@ from irc import irc
 import QuoteSys
 import sys
 import signal
+import urllib2
+from bs4 import BeautifulSoup as BS
+
 
 """
 Why not return a value that is parsed?
@@ -97,20 +100,23 @@ class BotBrain(irc):
                 self.found = True
                 if data.find("42")!=-1:
                     self.command = "42"
+                elif data.find("caveQuote")!=-1:
+					self.command = "caveQuote"
                 else:
                     self.found = False
                     
         #commands that are used in the channel by anyone
-        if data.find("PRIVMSG "+self.channel)!=-1:
-            if data.find(" :!")!=-1:
+        elif data.find("PRIVMSG "+self.channel)!=-1:
+            if data.find(" :@")!=-1:
                 self.found = True
                 if data.find("help")!=-1:
                     if data.find("quote"):
                         self.command = "quote help"
-                elif data.find("quote")!=-1:
-                    self.command = "quote"
-                else:
-                    self.found = False
+                if data.find(" :!")!=-1:
+					if data.find("quote")!=-1:
+						self.command = "quote"
+					else:
+						self.found = False
                 
         #else:
         #    self.found = False
@@ -142,6 +148,8 @@ class BotBrain(irc):
             self.master()
         if self.command == "42":
             self.fourthyTwo()
+        if self.command == "caveQuote":
+			self.caveQuote()
         if self.command == "quote help":
             """
             !quote
@@ -165,7 +173,6 @@ class BotBrain(irc):
                 self.say(self.quoteSys.data)
                 self.quoteSys.returnData = False
         if self.command == "ident":
-<<<<<<< HEAD
             pass
             #if self.data.find(self.nick+" :"+self.nick+" is not a registered"):
             #    self.Privmsg(self.owner, "user not registered")
@@ -176,15 +183,13 @@ class BotBrain(irc):
     
     def leaveChan(self,chan):
         """
-=======
 			#if self.data.find(self.nick+" :"+self.nick+" is not a registered"):
 				self.Privmsg(self.owner, "user not registered")
 				self.ident = False
 			#else:
 				self.Privmsg("nickserv","identify "+self.password)
 				self.ident = True
-    """
->>>>>>> 7d019e7bdfd21f94d1ed88dd6b3b4e1dbb5e946c
+		"""	"""
         function for leaving a irc channel
         also leaves and joins a other channel
         it leaves the global channel (self.channel) and joins 
@@ -198,60 +203,34 @@ class BotBrain(irc):
                 self.leavechan(self.channel)
                 self.join(chan)
                 self.channel = chan.strip(' ')
-    
-<<<<<<< HEAD
-=======
+    def getCaveQuote(self):
+		response = urllib2.urlopen('http://www.cavejohnsonhere.com/random/')
+		html = response.read()
+		soup = BS(html)
+		elem = soup.findAll('div', {'class':'quote_main'})
+		return elem[0].text
     """function for joining a channel"""
->>>>>>> 7d019e7bdfd21f94d1ed88dd6b3b4e1dbb5e946c
     def join(self,chan):
-        """function for joining a channel"""
         self.joinchan(chan)
-    
-<<<<<<< HEAD
-=======
     """get what is to be sayed for a command. """
->>>>>>> 7d019e7bdfd21f94d1ed88dd6b3b4e1dbb5e946c
     def extractChatMessage(self,data):
-        """get what is to be sayed for a command. """
         return data.split(':!')[1][len("say: "):]
-    
-<<<<<<< HEAD
-=======
     """function for sending something to the current channel it is in."""
->>>>>>> 7d019e7bdfd21f94d1ed88dd6b3b4e1dbb5e946c
     def say(self,data):
-        """function for sending something to the current channel it is in."""
         self.sendmsg(self.channel, data)
-    
-<<<<<<< HEAD
-=======
     """function for saying it's name (brain name)."""
->>>>>>> 7d019e7bdfd21f94d1ed88dd6b3b4e1dbb5e946c
     def sayName(self):
-        """function for saying it's name (brain name)."""
         self.sendmsg(self.channel, "Hello everyone! I am Artie.")
-    
-<<<<<<< HEAD
-=======
     """Tell who is it's master"""
->>>>>>> 7d019e7bdfd21f94d1ed88dd6b3b4e1dbb5e946c
     def master(self):
-        """Tell who is it's master"""
-        self.sendmsg(self.channel,"Hello there! Duality is my Master.")
-    
-<<<<<<< HEAD
-=======
+        self.sendmsg(self.channel,"Hello there! "+self.owner+" is my Master.")
     """tell a lovely qoute"""
->>>>>>> 7d019e7bdfd21f94d1ed88dd6b3b4e1dbb5e946c
     def fourthyTwo(self):
-        """tell a lovely qoute"""
         self.sendmsg(self.channel, 'Douglas Adams - "42 is a nice number that you can take home and introduce to your family."')
-    
-<<<<<<< HEAD
-=======
+    def caveQuote(self):
+		currentCaveQuote = self.getCaveQuote();
+		self.sendmsg(self.channel, currentCaveQuote)
     """Quit (still needs to be updated properly to quit from the channel the right way)"""
->>>>>>> 7d019e7bdfd21f94d1ed88dd6b3b4e1dbb5e946c
     def quit(self):
-        """Quit (still needs to be updated properly to quit from the channel the right way)"""
         self.ircQuit("There I go die again! good bye cruel world, maybe see you another time again, at another place and time maybe.")
         sys.exit(1)

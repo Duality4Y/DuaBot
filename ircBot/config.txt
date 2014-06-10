@@ -1,5 +1,5 @@
 server = irc.freenode.net
-channel = #bot
-nick = DauBot
-owner = Duality
-password = enter your password
+channel = #botTestDua
+nick = CaveIsAwesome
+owner = Daulity
+password = CaveJohnson
